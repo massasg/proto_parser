@@ -1,15 +1,18 @@
 <?php
 
+require_once dirname(__FILE__) . "/ProtoFile.php";
+
 ProtoParser::mainCircle();
 
 class ProtoParser
 {
-    public static function mainCircle
+    public static function mainCircle()
     {
         $proto_dir = dirname(__FILE__) . "/proto";
         $proto_files = self::findProtoFilesIn($proto_dir);
         foreach ($proto_files as $proto_name) {
-            $proto_file = self::parseProtoFile();
+           $proto_file = self::parseProtoFile(dirname(__FILE__) . "/proto/" . $proto_name);
+           var_dump($proto_file->responses);
         }
     }
 
