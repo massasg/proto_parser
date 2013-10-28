@@ -1,6 +1,9 @@
 <?php
 
 require_once dirname(__FILE__) . "/ProtoFile.php";
+require_once __DIR__ . "/DaemonAPIGenerator.php";
+require_once __DIR__ . "/DaemonTestCaseGenerator.php";
+require_once __DIR__ . "/Helper.php";
 
 ProtoParser::mainCircle();
 
@@ -12,7 +15,10 @@ class ProtoParser
         $proto_files = self::findProtoFilesIn($proto_dir);
         foreach ($proto_files as $proto_name) {
            $proto_file = self::parseProtoFile(dirname(__FILE__) . "/proto/" . $proto_name);
-           var_dump($proto_file->responses);
+           $api_file = new DaemonAPIGenerator($proto_file);
+           var_dump($proto_file->file_name);
+           var_dump($api_file->getDaemonName());
+    //       var_dump($proto_file->enums);
         }
     }
 
