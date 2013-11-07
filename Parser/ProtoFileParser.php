@@ -1,8 +1,8 @@
 <?php
 
-require_once dirname(__FILE__) . "/MessageBlock.php";
+require_once __DIR__ . "/MessageParser.php";
 
-class ProtoFile
+class ProtoFileParser
 {
     const
         REG_PACKAGE = "/package (.*);/",
@@ -47,7 +47,7 @@ class ProtoFile
     {
         preg_match_all(self::REG_REQUEST, $this->file_content, $result);
         for ($i = 0; $i < count($result[1]); $i++) {
-            $this->requests[] = new MessageBlock($result[1][$i], MessageBlock::TYPE_REQUEST, $result[2][$i]);
+            $this->requests[] = new MessageParser($result[1][$i], MessageParser::TYPE_REQUEST, $result[2][$i]);
         }
     }
 
@@ -55,7 +55,7 @@ class ProtoFile
     {
         preg_match_all(self::REG_RESPONSE, $this->file_content, $result);
         for ($i = 0; $i< count($result[1]); $i++) {
-            $this->responses[] = new MessageBlock($result[1][$i], MessageBlock::TYPE_RESPONSE, $result[2][$i]);
+            $this->responses[] = new MessageParser($result[1][$i], MessageParser::TYPE_RESPONSE, $result[2][$i]);
         }
     }
 
@@ -63,7 +63,7 @@ class ProtoFile
     {
         preg_match_all(self::REG_ENUM, $this->file_content, $result);
         for ($i = 0; $i< count($result[1]); $i++) {
-            $this->enums[] = new MessageBlock($result[1][$i], MessageBlock::TYPE_ENUM, $result[2][$i]);
+            $this->enums[] = new MessageParser($result[1][$i], MessageParser::TYPE_ENUM, $result[2][$i]);
         }
 
     }

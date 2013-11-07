@@ -1,8 +1,8 @@
 <?php
 
-require_once dirname(__FILE__) . "/Field.php";
+require_once dirname(__FILE__) . "/FieldParser.php";
 
-class MessageBlock
+class MessageParser
 {
     const
         TYPE_REQUEST = "request",
@@ -19,6 +19,6 @@ class MessageBlock
     {
         $this->mess_name = $name;
         $this->mess_type = $type;
-        $this->fields = Field::createFieldsFromStr($str_fields, $type);
+        $this->fields = FieldParser::createFieldsFromStr($str_fields, $type);
     }
 }

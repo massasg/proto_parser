@@ -7,9 +7,5 @@ class ClassGenerator
         $class_name,
         $requires,
         $methods = array(),
-        $consts = array(),
-        $public_vars = array(),
-        $private_vars = array();
-
-
+        $fields = array();
 }

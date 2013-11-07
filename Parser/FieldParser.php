@@ -1,6 +1,6 @@
 <?php
 
-class Field
+class FieldParser
 {
     const
         //field_type
@@ -38,7 +38,7 @@ class Field
 
     public static function createFieldsFromStr($str, $type)
     {
-        $result = ($type == MessageBlock::TYPE_ENUM) ?
+        $result = ($type == MessageParser::TYPE_ENUM) ?
             self::createEnumFieldsFromStr($str) :
             self::createMessFieldsFromStr($str);
         return $result;
@@ -50,7 +50,7 @@ class Field
         $result = array();
         preg_match_all(self::REG_MESS_FIELD, $str, $fields);
         for ($i = 0; $i < count($fields[1]); $i++) {
-            $result[] = new Field(self::FIELD_MESS, trim($fields[3][$i]), $fields[4][$i], $fields[1][$i], $fields[2][$i]);
+            $result[] = new FieldParser(self::FIELD_MESS, trim($fields[3][$i]), $fields[4][$i], $fields[1][$i], $fields[2][$i]);
         }
         return $result;
     }
@@ -61,7 +61,7 @@ class Field
         $result = array();
         preg_match_all(self::REG_ENUM_FIELD, $str, $fields);
         for ($i = 0; $i < count($fields[1]); $i++) {
-            $result[] = new Field(self::FIELD_ENUM, trim($fields[1][$i]), $fields[2][$i]);
+            $result[] = new FieldParser(self::FIELD_ENUM, trim($fields[1][$i]), $fields[2][$i]);
         }
         return $result;
     }

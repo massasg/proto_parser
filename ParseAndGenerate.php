@@ -1,13 +1,13 @@
 <?php
 
-require_once dirname(__FILE__) . "/ProtoFile.php";
-require_once __DIR__ . "/DaemonAPIGenerator.php";
-require_once __DIR__ . "/DaemonTestCaseGenerator.php";
+require_once __DIR__ . "/Parser/ProtoFileParser.php";
+require_once __DIR__ . "/Generator/DaemonAPIGenerator.php";
+require_once __DIR__ . "/Generator/DaemonTestCaseGenerator.php";
 require_once __DIR__ . "/Helper.php";
 
-ProtoParser::mainCircle();
+ParseAndGenerate::mainCircle();
 
-class ProtoParser
+class ParseAndGenerate
 {
     public static function mainCircle()
     {
@@ -16,9 +16,9 @@ class ProtoParser
         foreach ($proto_files as $proto_name) {
            $proto_file = self::parseProtoFile(dirname(__FILE__) . "/proto/" . $proto_name);
            $api_file = new DaemonAPIGenerator($proto_file);
-           var_dump($proto_file->file_name);
-           var_dump($api_file->getDaemonName());
-    //       var_dump($proto_file->enums);
+    //       var_dump($proto_file->file_name);
+    //       var_dump($api_file->getDaemonName());
+           var_dump($proto_file->enums);
         }
     }
 
@@ -41,7 +41,7 @@ class ProtoParser
 
     public static function parseProtoFile($proto_name)
     {
-        $proto_file = new ProtoFile($proto_name);
+        $proto_file = new ProtoFileParser($proto_name);
 
         return $proto_file;
     }
